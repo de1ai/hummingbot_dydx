@@ -1,0 +1,25 @@
+########################################################
+###     dYdX v4 Kline Painter Script Configuration   ###
+########################################################
+
+# Script filename (must match the file under scripts/)
+script_file_name: dydx_auto_order_taker.py
+
+# Market and connector
+taker_connector: dydx_v4_perpetual
+trading_pair: DDT-USD
+
+# External reference market (leave empty to use the local book)
+external_connector: null
+external_trading_pair: null
+
+# Paint / tick parameters
+paint_interval: 30.0           # paint once every 30 seconds
+interval_jitter: 5.0           # 0–5s random jitter (simulate retail flow)
+trade_amount: 1.0              # size per taker tick (must meet exchange step size)
+trade_amount_min: 0.5          # random size lower bound
+trade_amount_max: 1.5          # random size upper bound
+
+# Inventory and risk
+max_inventory_limit: 10.0      # max net inventory per side; reverse-flatten when reached
+max_price_deviation_pct: 0.05  # max allowed price deviation 5%

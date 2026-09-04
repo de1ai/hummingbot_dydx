@@ -1,0 +1,63 @@
+########################################################
+###       Perpetual market making strategy config         ###
+########################################################
+
+template_version: 6
+strategy: perpetual_market_making
+
+# Connector and trading pair
+derivative: dydx_v4_perpetual
+market: DDT-USD
+
+# Leverage and position mode
+leverage: 5
+position_mode: One-way
+
+# Quote spread (%) — first bid/ask distance from the book
+bid_spread: 0.3
+ask_spread: 0.3
+
+# Multi-level grid (5 levels per side = 10 orders)
+order_levels: 8
+# Extra spread per additional level (e.g. 0.3%, then 0.6%, then 0.9%)
+order_level_spread: 0.7
+# Size change per additional level (0 = same size; positive = increase; negative = decrease)
+order_level_amount: 0.5
+
+# Base order size (ensure it meets min size under leverage)
+order_amount: 2
+
+# Order refresh interval (seconds)
+order_refresh_time: 18.0
+
+order_refresh_tolerance_pct: 0  # skip cancel if price moved less than 0.1%; keep resting orders
+
+# Delay after a full fill before re-quoting (seconds)
+filled_order_delay: 1.0
+
+# Enable position take-profit / stop-loss (0.0 = disabled)
+# When a long or short is open, quotes include position protection
+stop_loss_spread: 0.0001                 # flatten at 2.0% loss
+stop_loss_slippage_buffer: 5.0        # stop-loss slippage buffer (%)
+time_between_stop_loss_orders: 2.0    # retry interval after a failed stop-loss order
+long_profit_taking_spread: 0.0      # take profit on longs at 1.5%
+short_profit_taking_spread: 0.0        # take profit on shorts at 1.5%
+
+# Maker price band (-1.0 = disabled)
+price_ceiling: -1.0
+price_floor: -1.0
+
+# Jump-the-book optimization (leave off; let the bot maintain the grid)
+order_optimization_enabled: false
+bid_order_optimization_depth: 0.0
+ask_order_optimization_depth: 0.0
+
+# Price source (default: current order-book mid)
+price_source: current_market
+price_type: mid_price
+minimum_spread: -100.0
+price_source_derivative:
+price_source_market:
+price_source_custom_api:
+custom_api_update_interval: 5.0
+order_override:
